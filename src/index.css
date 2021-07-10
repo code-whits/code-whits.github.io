@@ -1,0 +1,29 @@
+.ml-10 {
+    margin: 0rem 0rem 0rem 8rem !important;
+}
+
+.mr-10 {
+    margin: 0rem 8rem 0rem 0rem !important;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.cursor-default{
+    cursor: default;
+}
+
+.cw-logo {
+    max-height: 60px;
+    max-width: 60px;
+}
+
+.logo {
+    max-width: 60px;
+    max-height: 36px;
+}
