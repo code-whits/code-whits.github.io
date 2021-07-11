@@ -24,78 +24,101 @@ const languages = [
 ];
 
 const Home = () => {
-  // todo: implement a generalized function
-  const [pyFunctions, setPyFunctions] = useState([]);
-  const [jsFunctions, setJsFunctions] = useState([]);
-  const [cFunctions, setCFunctions] = useState([]);
+  const [functions, setFunctions] = useState([]);
   const [searchValue, setSearchValue] = useState("");
 
-  const search = async (url, searchTerm) => {
-    let funcs = [];
-    var filteredList = [];
-    await axios
-      .get(url)
-      .then((res) => (funcs = res.data.functions))
-      .catch((error) => console.error(error));
-    let tokens = searchTerm
-      .toLowerCase()
-      .split(" ")
-      .filter(function (token) {
-        return token.trim() !== "";
+  useEffect(() => {
+    const getData = async (lang, limit) => {
+      let data = [], tempData = {};
+      const url =
+        "https://raw.githubusercontent.com/code-whits/code-whits-" +
+        lang +
+        "/main/misc/functions.json";
+      if (searchValue !== "") {
+        search(url, searchValue).then((ret) => {
+          ret.forEach((element) => {
+            tempData = {
+              language: lang,
+              data: element,
+            };
+          });
+          data.push(tempData);
+          tempData = {};
+        });
+      } else {
+        await axios
+          .get(url)
+          .then((res) => {
+            res.data.functions.slice(0, limit).forEach((element) => {
+              tempData = {
+                language: lang,
+                data: element,
+              };
+              data.push(tempData);
+              tempData = {};
+            });
+          })
+          .catch((error) => console.error(error));
+      }
+      return data;
+    };
+
+    const search = async (lang, searchTerm) => {
+      const url =
+        "https://raw.githubusercontent.com/code-whits/code-whits-" +
+        lang +
+        "/main/misc/functions.json";
+      let funcs = [], filteredList = [];
+      await axios
+        .get(url)
+        .then((res) => (funcs = res.data.functions))
+        .catch((error) => console.error(error));
+      let tokens = searchTerm
+        .toLowerCase()
+        .split(" ")
+        .filter(function (token) {
+          return token.trim() !== "";
+        });
+      let searchTermRegex = new RegExp(tokens.join("|"), "gim");
+      filteredList = funcs.filter(function (func) {
+        for (var key in func) {
+          var searchString = "";
+          if (func.hasOwnProperty(key) && func[key] !== "") {
+            searchString += func[key].toString().toLowerCase().trim() + " ";
+          }
+        }
+        return searchString.match(searchTermRegex);
       });
-    let searchTermRegex = new RegExp(tokens.join("|"), "gim");
-    filteredList = funcs.filter(function (func) {
-      for (var key in func) {
-        var searchString = "";
-        if (func.hasOwnProperty(key) && func[key] !== "") {
-          searchString += func[key].toString().toLowerCase().trim() + " ";
+      return filteredList;
+    };
+
+    const getFunctions = async (limit) => {
+      let langs = ["python", "javascript", "c"];
+      setFunctions([]);
+      if (searchValue !== "") {
+        for await (let lang of langs) {
+          search(lang, searchValue).then((ret) => {
+            let data = [], tempData = {};
+            ret.forEach((element) => {
+              tempData = {
+                language: lang,
+                data: element,
+              };
+              data.push(tempData);
+              tempData = {};
+            });
+            setFunctions(functions => [...functions, ...data]);
+          });
+        }
+      } else {
+        for await (let lang of langs) {
+          getData(lang, limit).then((data) => {
+            setFunctions(functions => [...functions, ...data]);
+          });
         }
       }
-      return searchString.match(searchTermRegex);
-    });
-    return filteredList;
-  };
-
-  useEffect(() => {
-    async function getPyFunctions() {
-      const url =
-        "https://raw.githubusercontent.com/code-whits/code-whits-python/main/misc/functions.json";
-      if (searchValue !== "") {
-        search(url, searchValue).then((ret) => setPyFunctions(ret));
-      } else {
-        await axios
-          .get(url)
-          .then((res) => setPyFunctions(res.data.functions.slice(0, 2)))
-          .catch((error) => console.error(error));
-      }
-    }
-    async function getJsFunctions() {
-      const url =
-        "https://raw.githubusercontent.com/code-whits/code-whits-javascript/main/misc/functions.json";
-      if (searchValue !== "") {
-        search(url, searchValue).then((ret) => setJsFunctions(ret));
-      } else {
-        await axios
-          .get(url)
-          .then((res) => setJsFunctions(res.data.functions.slice(0, 2)))
-          .catch((error) => console.error(error));
-      }
-    }
-    async function getCFunctions() {
-      const url =
-        "https://raw.githubusercontent.com/code-whits/code-whits-c/main/misc/functions.json";
-      if (searchValue !== "") {
-        search(url, searchValue).then((ret) => setCFunctions(ret));
-      } else {
-        await axios
-          .get(url)
-          .then((res) => setCFunctions(res.data.functions.slice(0, 2)))
-          .catch((error) => console.error(error));
-      }
-    }
-    getPyFunctions();
-    getJsFunctions();
-    getCFunctions();
+    };
+    getFunctions(2);
   }, [searchValue]);
   return (
     <>
@@ -126,15 +149,7 @@ const Home = () => {
           })}
         </div>
         <h2 className="my-4 font-custom select-none">Latest</h2>
-        {pyFunctions.length !== 0 && (
-          <ListComponent items={pyFunctions} language="python" />
-        )}
-        {jsFunctions.length !== 0 && (
-          <ListComponent items={jsFunctions} language="javascript" />
-        )}
-        {cFunctions.length !== 0 && (
-          <ListComponent items={cFunctions} language="c" />
-        )}
+        {functions.length !== 0 && <ListComponent items={functions} />}
       </div>
       <FooterComponent />
     </>

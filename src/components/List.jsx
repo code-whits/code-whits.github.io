@@ -10,7 +10,7 @@ const logos = {
   "c": <CLogo />,
 };
 
-const ListComponent = ({ items, language }) => {
+const ListComponent = ({ items }) => {
   const [open, setOpen] = useState([]);
   const [isnull, setIsnull] = useState(false)
 
@@ -26,7 +26,7 @@ const ListComponent = ({ items, language }) => {
     if(items.length === 0) {
       setIsnull(true)
     }
-  }, [items.length])
+  }, [items, items.length])
 
   return (
     <div className="mx-3 my-4">
@@ -38,19 +38,19 @@ const ListComponent = ({ items, language }) => {
           >
             <div className="mx-3 w-100">
               <div className="fn-title d-flex align-items-center mx-2">
-                <span className="m-2">{logos[language]}</span>
+                <span className="m-2">{logos[item.language]}</span>
                 <span
                   className="cursor-pointer hover-underline"
                   onClick={() => toggleOpen(index)}
                 >
-                  {item.name}
+                  {item.data.name}
                 </span>
               </div>
               <div className="fw-normal mx-4 cursor-default">
-                {item.description}
+                {item.data.description}
               </div>
               {open.includes(index) && (
-                <SourceComponent key={index} src={item.source} language={language} />
+                <SourceComponent key={index} src={item.data.source} language={item.language} />
               )}
             </div>
           </div>
