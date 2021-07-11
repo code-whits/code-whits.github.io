@@ -1,12 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Aleo&display=swap');
 
 body {
     background-color: hsl(0,0%,10%) !important;
     color: white;
 }
 
+.font-logo {
+    font-family: 'Aleo', serif;
+}
+
 .font-custom {
     font-family: 'Open Sans', sans-serif;
+}
+
+.select-none {
+    user-select: none;
 }
 
 .bg-primary {
@@ -30,7 +39,7 @@ body {
 }
 
 .ml-10 {
-    margin: 0rem 0rem 0rem 8rem !important;
+    margin: 0rem 0rem 0rem 9rem !important;
 }
 
 .mr-10 {

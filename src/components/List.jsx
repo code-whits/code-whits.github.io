@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import SourceComponent from "./Source";
 
@@ -11,19 +11,26 @@ const logos = {
 };
 
 const ListComponent = ({ items, language }) => {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState([]);
+  const [isnull, setIsnull] = useState(false)
 
   const toggleOpen = (index) => {
-    if (open === index) {
-      setOpen(null);
+    if (open.includes(index)) {
+      setOpen(open.filter(item => item !== index));
     } else {
-      setOpen(index);
+      setOpen([...open, index]);
     }
   };
 
+  useEffect(() => {
+    if(items.length === 0) {
+      setIsnull(true)
+    }
+  }, [items.length])
+
   return (
     <div className="mx-3 my-4">
-      {items.map((item, index) => {
+      {!isnull && items.map((item, index) => {
         return (
           <div
             key={index}
@@ -42,7 +49,7 @@ const ListComponent = ({ items, language }) => {
               <div className="fw-normal mx-4 cursor-default">
                 {item.description}
               </div>
-              {open === index && (
+              {open.includes(index) && (
                 <SourceComponent key={index} src={item.source} language={language} />
               )}
             </div>

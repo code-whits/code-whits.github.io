@@ -19,9 +19,9 @@ const SourceComponent = ({ src, language }) => {
       src;
     axios
       .get(url)
-      .then((res) => setSource(res.data))
+      .then((res) => setSource(res.data.trimEnd()))
       .then(setLoading(false));
-  }, [src]);
+  }, [src, language]);
   return (
     <>
       {loading === false ? (
