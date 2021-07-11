@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus as Style } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
 import SpinnerComponent from "../components/Spinner";
 
 import axios from "axios";
@@ -10,7 +13,9 @@ const SourceComponent = ({ src, language }) => {
 
   useEffect(() => {
     const url =
-      "https://raw.githubusercontent.com/code-whits/code-whits-" + language + "/main/lib/" +
+      "https://raw.githubusercontent.com/code-whits/code-whits-" +
+      language +
+      "/main/lib/" +
       src;
     axios
       .get(url)
@@ -20,7 +25,9 @@ const SourceComponent = ({ src, language }) => {
   return (
     <>
       {loading === false ? (
-        <div className="text-light bg-dark my-3 mx-auto p-3 w-90">{source}</div>
+        <div className="my-3 mx-auto w-90">
+          <SyntaxHighlighter language={language} style={Style}>{source}</SyntaxHighlighter>
+        </div>
       ) : (
         <SpinnerComponent />
       )}

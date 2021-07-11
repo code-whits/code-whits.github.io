@@ -27,10 +27,10 @@ const ListComponent = ({ items, language }) => {
         return (
           <div
             key={index}
-            className="d-flex justify-contents-between border rounded p-4 my-3"
+            className="d-flex justify-contents-between bg-ternary border rounded px-1 pb-2 my-3"
           >
             <div className="mx-3 w-100">
-              <div className="fs-4 fw-bold my-1 mx-2">
+              <div className="fn-title d-flex align-items-center mx-2">
                 <span className="m-2">{logos[language]}</span>
                 <span
                   className="cursor-pointer hover-underline"
@@ -39,7 +39,7 @@ const ListComponent = ({ items, language }) => {
                   {item.name}
                 </span>
               </div>
-              <div className="fs-5 fw-normal mx-4 cursor-default">
+              <div className="fw-normal mx-4 cursor-default">
                 {item.description}
               </div>
               {open === index && (

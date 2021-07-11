@@ -11,17 +11,14 @@ import FooterComponent from "../components/Footer";
 const languages = [
   {
     id: "python",
-    class: "fab fa-python",
     img: < PythonLogo />,
   },
   {
     id: "javascript",
-    class: "fab fa-js-square",
     img: < JsLogo />,
   },
   {
     id: "c/c++",
-    class: "fab fa-cuttlefish",
     img: < CLogo />,
   },
 ];
@@ -64,24 +61,21 @@ const Home = () => {
   return (
     <>
       <NavbarComponent />
-      <div className="container">
-        <h2 className="my-4">Featured</h2>
-        <div className="m-2 row">
+      <div className="container w-65">
+        <h2 className="my-4 font-custom">Featured</h2>
+        <div className="m-2 row w-90 mx-auto">
           {languages.map((language) => {
             return (
               <div
                 key={language.id}
                 className="d-flex justify-content-around col-sm row border rounded m-2 py-3"
               >
-                {/* <i
-                  className={language.class + " my-2 mx-auto fs-4 col-sm-2"}
-                ></i> */}
                 {language.img}
                 <Link
                   to={"/l/" + language.id}
-                  className="text-decoration-none text-capitalize text-dark col-sm-8"
+                  className="text-decoration-none text-capitalize text-light col-sm-8"
                 >
-                  <span className="fs-4 fw-bold text-capitalize">
+                  <span className="fs-4 fw-normal text-capitalize">
                     {language.id}
                   </span>
                 </Link>
@@ -89,7 +83,7 @@ const Home = () => {
             );
           })}
         </div>
-        <h2 className="my-4">Latest</h2>
+        <h2 className="my-4 font-custom">Latest</h2>
         <ListComponent items={pyFunctions} language="python" />
         <ListComponent items={jsFunctions} language="javascript" />
         <ListComponent items={cFunctions} language="c" />
