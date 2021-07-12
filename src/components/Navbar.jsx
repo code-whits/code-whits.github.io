@@ -19,12 +19,12 @@ const NavbarComponent = ({ setSearchValue, searchValue }) => {
 
   return (
     <nav className="navbar bg-primary px-10 w-100">
-      <span className="d-flex align-items-center">
+      <a className="d-flex align-items-center text-decoration-none" href="/">
         <Logo />
         <span className="text-light fs-4 fw-bold font-logo select-none">
           Code Whits&nbsp;
         </span>
-      </span>
+      </a>
       <span className="mr-10">
         <input
           type="text"

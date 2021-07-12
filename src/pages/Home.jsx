@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import NavbarComponent from "../components/Navbar";
 import ListComponent from "../components/List";
 import FooterComponent from "../components/Footer";
+import EmptyListComponent from "../components/EmptyList";
 
 import { languages, languageProps, getData } from "../utils/utils";
 
@@ -26,7 +27,7 @@ const Home = () => {
         setSearchValue={setSearchValue}
         searchValue={searchValue}
       />
-      <div className="container width-custom">
+      <div className="container width-custom w-full">
         <h2 className="my-4 font-custom select-none">Featured</h2>
         <div className="m-2 row w-90 languages">
           {languageProps.map((language) => {
@@ -50,6 +51,7 @@ const Home = () => {
         </div>
         <h2 className="my-4 font-custom select-none">Latest</h2>
         {functions.length !== 0 && <ListComponent items={functions} />}
+        {functions.length === 0 && <EmptyListComponent />}
       </div>
       <FooterComponent />
     </>

@@ -5,6 +5,7 @@ import NavbarComponent from "../components/Navbar";
 import ListComponent from "../components/List";
 import SpinnerComponent from "../components/Spinner";
 import FooterComponent from "../components/Footer";
+import EmptyListComponent from "../components/EmptyList";
 
 import { languages, languageProps, getData } from "../utils/utils";
 
@@ -15,6 +16,7 @@ const Language = (props) => {
   const history = useHistory();
 
   useEffect(() => {
+    setLoading(true)
     const getFunctions = async () => {
       setFunctions([]);
       const { language } = props.match.params;
@@ -35,12 +37,12 @@ const Language = (props) => {
         setSearchValue={setSearchValue}
         searchValue={searchValue}
       />
-      <div className="container width-custom">
+      <div className="container width-custom min-vh-custom">
         
           {languageProps.map((lang) => {
             if (lang.id === props.match.params.language)
               return (
-                <div className="row mx-auto my-5" key={lang.id}>
+                <div className="row mx-auto my-3" key={lang.id}>
                   <div className="col-sm-3">
                     <span className="d-flex justify-content-center align-items-center ml-5 my-3">
                       {lang.imgLarge}
@@ -54,7 +56,8 @@ const Language = (props) => {
               return null;
           })}
           {loading && <SpinnerComponent />}
-          {!loading && <ListComponent items={functions} />}
+          {!loading && functions.length !== 0 && <ListComponent items={functions} />}
+          {!loading && functions.length === 0 && <EmptyListComponent />}
         </div>
         < FooterComponent />
     </>
