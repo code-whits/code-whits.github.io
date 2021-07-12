@@ -6,7 +6,7 @@ import JsIcon from "../icons/js.png";
 import CIcon from "../icons/c.png";
 
 export const Logo = () => {
-  return <img src={LogoIcon} className="ml-10 cw-logo" alt="logo" />;
+  return <img src={LogoIcon} className="cw-logo" alt="logo" />;
 };
 
 export const PythonLogo = ({ styles }) => {

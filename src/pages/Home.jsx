@@ -16,7 +16,7 @@ const Home = () => {
     const getFunctions = async () => {
       setFunctions([]);
       for await (let language of languages) {
-        getData(language, searchValue, setFunctions)
+        getData(language, searchValue, setFunctions);
       }
     };
     getFunctions();
@@ -27,14 +27,14 @@ const Home = () => {
         setSearchValue={setSearchValue}
         searchValue={searchValue}
       />
-      <div className="container width-custom w-full">
+      <div className="container width-custom">
         <h2 className="my-4 font-custom select-none">Featured</h2>
         <div className="m-2 row w-90 languages">
           {languageProps.map((language) => {
             return (
               <div
                 key={language.id}
-                className="d-flex justify-content-around col-sm row border rounded m-2 py-3"
+                className="d-flex justify-content-around align-items-center col-sm row border rounded m-2 py-3"
               >
                 {language.imgSmall}
                 <Link
@@ -50,7 +50,11 @@ const Home = () => {
           })}
         </div>
         <h2 className="my-4 font-custom select-none">Latest</h2>
-        {functions.length !== 0 && <ListComponent items={functions} />}
+        {functions.length !== 0 && (
+          <>
+            <ListComponent items={functions} />{" "}
+          </>
+        )}
         {functions.length === 0 && <EmptyListComponent />}
       </div>
       <FooterComponent />

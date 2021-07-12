@@ -4,6 +4,24 @@
 body {
   background-color: hsl(0, 0%, 10%) !important;
   color: white;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px hsl(0, 0%, 20%);
+  -webkit-box-shadow: inset 0 0 6px hsl(0, 0%, 20%);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: hsl(0, 0%, 20%);;
+  box-shadow: inset 0 0 6px hsl(0, 0%, 20%);
+  -webkit-box-shadow: inset 0 0 6px hsl(0, 0%, 20%);
 }
 
 .font-logo {
@@ -30,36 +48,8 @@ body {
   background-color: hsl(0, 0%, 17%) !important;
 }
 
-.mx-10 {
-  margin: 0rem 8rem !important;
-}
-
-.my-10 {
-  margin: 8rem 0rem !important;
-}
-
-.ml-10 {
-  margin: 0rem 0rem 0rem 9rem !important;
-}
-
-.mr-10 {
-  margin: 0rem 10rem 0rem 0rem !important;
-}
-
-.px-10 {
-  padding: 1rem 7rem !important;
-}
-
-.py-10 {
-  padding: 8rem 1rem !important;
-}
-
-.pl-10 {
-  padding: 0rem 0rem 0rem 8rem !important;
-}
-
-.pr-10 {
-  padding: 0rem 8rem 0rem 0rem !important;
+.w-custom {
+  max-width: 500px;
 }
 
 .w-90 {
@@ -70,53 +60,38 @@ body {
   width: 65%;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 992px) {
   .languages {
     margin-left: auto !important;
     margin-right: auto !important;
   }
 }
 
-@media only screen and (max-width: 768px) {
-  .mx-10 {
-    margin: 0 !important;
-  }
+.navbar {
+  padding: 0 8rem 0 6rem;  
+}
 
-  .my-10 {
-    margin: 0 !important;
-  }
-
-  .ml-10 {
-    margin: 0 !important;
-  }
-
-  .mr-10 {
-    margin: 0 !important;
-  }
-
-  .px-10 {
-    padding: 1rem 5rem !important;
-  }
-
-  .py-10 {
-    padding: 8 !important;
-  }
-
-  .pl-10 {
-    padding: 0 !important;
-  }
-
-  .pr-10 {
-    padding: 0 !important;
-  }
-
-  .display-none {
-    display: none;
+@media only screen and (max-width: 992px) {
+  .row-custom {
+    display: block !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
   }
 
   .width-custom {
     width: 100%;
   }
+
+  .justify-center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .navbar {
+    padding: 0rem;
+    margin: 0;
+  }
+
 }
 
 .cursor-pointer {

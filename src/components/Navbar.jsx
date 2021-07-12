@@ -18,25 +18,25 @@ const NavbarComponent = ({ setSearchValue, searchValue }) => {
   }, [searchValue]);
 
   return (
-    <nav className="navbar bg-primary px-10 w-100">
-      <a className="d-flex align-items-center text-decoration-none" href="/">
-        <Logo />
-        <span className="text-light fs-4 fw-bold font-logo select-none">
-          Code Whits&nbsp;
+    <nav className="navbar bg-primary row d-flex justify-content-center">
+        <a className="justify-center d-flex align-items-center text-decoration-none col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-7" href="/">
+          <Logo />
+          <span className="text-light fs-4 fw-bold font-logo select-none">
+            Code Whits&nbsp;
+          </span>
+        </a>
+        <span className="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-3 col-xl-3">
+          <input
+            type="text"
+            placeholder="Search"
+            value={value}
+            className="form-control"
+            onKeyDown={(e) => handleKeyPress(e)}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          />
         </span>
-      </a>
-      <span className="mr-10">
-        <input
-          type="text"
-          placeholder="Search"
-          value={value}
-          className="form-control display-none"
-          onKeyDown={(e) => handleKeyPress(e)}
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
-        />
-      </span>
     </nav>
   );
 };
