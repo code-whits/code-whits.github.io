@@ -2,10 +2,11 @@ import React from "react";
 
 const FooterComponent = () => {
   return (
-    <footer className="text-lg-start py-2">
+    <footer className="text-lg-start py-2 mb-0">
         <div className="d-flex justify-content-center list inline-list px-3 my-2">
             <span className="mx-2 mt-2"><a className="text-secondary text-decoration-none" href="https://github.com/code-whits">Github</a></span>
             <span className="mx-2 mt-2"><a className="text-secondary text-decoration-none" href="/contribute">Contribute</a></span>
+            <span className="mx-2 mt-2"><a className="text-secondary text-decoration-none" href="https://icons8.com/">Icons</a></span>
         </div>
       <div
         className="text-center text-light px-4 my-2"

@@ -3,42 +3,60 @@ import { useHistory } from "react-router-dom";
 
 import NavbarComponent from "../components/Navbar";
 import ListComponent from "../components/List";
+import SpinnerComponent from "../components/Spinner";
+import FooterComponent from "../components/Footer";
 
-import axios from "axios";
+import { languages, languageProps, getData } from "../utils/utils";
 
 const Language = (props) => {
   const [functions, setFunctions] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true);
   const history = useHistory();
 
   useEffect(() => {
-    const languages = ["python", "javascript", "c"];
-    async function getFunctions(language) {
-      const url =
-        "https://raw.githubusercontent.com/code-whits/code-whits-" +
-        language +
-        "/main/misc/functions.json";
-      await axios
-        .get(url)
-        .then((res) => setFunctions(res.data.functions))
-        .catch((error) => console.error(error));
-    }
-
-    const { language } = props.match.params;
-    if (languages.includes(language)) {
-      getFunctions(language);
-    } else {
-      history.push("/Notfound");
-    }
-  }, [history, props]);
+    const getFunctions = async () => {
+      setFunctions([]);
+      const { language } = props.match.params;
+      if (languages.includes(language)) {
+        getData(language, searchValue, setFunctions);
+      } else {
+        history.push("/Notfound");
+      }
+    };
+    getFunctions();
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
+  }, [history, props, searchValue]);
   return (
     <>
-      <NavbarComponent />
-      <div className="container w-65">
-        <ListComponent
-          items={functions}
-          language={props.match.params.language}
-        />
-      </div>
+      <NavbarComponent
+        setSearchValue={setSearchValue}
+        searchValue={searchValue}
+      />
+      <div className="container width-custom">
+        
+          {languageProps.map((lang) => {
+            if (lang.id === props.match.params.language)
+              return (
+                <div className="row mx-auto my-5" key={lang.id}>
+                  <div className="col-sm-3">
+                    <span className="d-flex justify-content-center align-items-center ml-5 my-3">
+                      {lang.imgLarge}
+                    </span>
+                  </div>
+                  <div className="d-flex justify-content-center align-items-center col-sm-9 px-3">
+                    {lang.description}
+                  </div>
+                </div>
+              );
+              return null;
+          })}
+          {loading && <SpinnerComponent />}
+          {!loading && <ListComponent items={functions} />}
+        </div>
+        < FooterComponent />
     </>
   );
 };

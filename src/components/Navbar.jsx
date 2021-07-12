@@ -30,7 +30,7 @@ const NavbarComponent = ({ setSearchValue, searchValue }) => {
           type="text"
           placeholder="Search"
           value={value}
-          className="form-control"
+          className="form-control display-none"
           onKeyDown={(e) => handleKeyPress(e)}
           onChange={(e) => {
             setValue(e.target.value);
