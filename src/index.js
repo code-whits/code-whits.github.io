@@ -9,9 +9,9 @@ import Notfound from "./pages/Notfound"
 import "./index.css";
 
 ReactDOM.render(
-  <Router>
+  <Router basename={process.env.PUBLIC_URL}>
     <Switch>
-      <Route path="/l/:language" component={Language}></Route>
+      <Route path="/l/:language" component={Language} exact></Route>
       <Route path="/Notfound" component={Notfound} exact></Route>
       <Route path="/" component={Home} exact></Route>
       <Redirect from='/*' to='/Notfound' />
