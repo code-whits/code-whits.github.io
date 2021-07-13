@@ -5,12 +5,14 @@ import NavbarComponent from "../components/Navbar";
 import ListComponent from "../components/List";
 import FooterComponent from "../components/Footer";
 import EmptyListComponent from "../components/EmptyList";
+import SpinnerComponent from "../components/Spinner";
 
 import { languages, languageProps, getData } from "../utils/utils";
 
 const Home = () => {
   const [functions, setFunctions] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getFunctions = async () => {
@@ -20,6 +22,9 @@ const Home = () => {
       }
     };
     getFunctions();
+    setTimeout(() => {
+      setLoading(false);
+    }, 500);
   }, [searchValue]);
   return (
     <>
@@ -27,7 +32,7 @@ const Home = () => {
         setSearchValue={setSearchValue}
         searchValue={searchValue}
       />
-      <div className="container width-custom">
+      <div className="container width-custom min-vh-custom">
         <h2 className="my-4 font-custom select-none">Featured</h2>
         <div className="m-2 row w-90 languages">
           {languageProps.map((language) => {
@@ -50,12 +55,9 @@ const Home = () => {
           })}
         </div>
         <h2 className="my-4 font-custom select-none">Latest</h2>
-        {functions.length !== 0 && (
-          <>
-            <ListComponent items={functions} />{" "}
-          </>
-        )}
-        {functions.length === 0 && <EmptyListComponent />}
+        {loading && <SpinnerComponent />}
+        {!loading && functions.length !== 0 && <ListComponent items={functions} />}
+        {!loading && functions.length === 0 && <EmptyListComponent />}
       </div>
       <FooterComponent />
     </>
