@@ -58,8 +58,7 @@ const search = async (lang, searchTerm) => {
   return filteredList;
 };
 
-export const getData = async (lang, searchValue, setFunctions) => {
-  const limit = 2;
+export const getData = async (lang, searchValue, setFunctions, limit) => {
   let data = [],
     tempData = {};
   const url =
@@ -86,7 +85,9 @@ export const getData = async (lang, searchValue, setFunctions) => {
     await axios
       .get(url)
       .then((res) => {
-        res.data.functions.slice(0, limit).forEach((element) => {
+        var funcs;
+        if(limit === null) {funcs = res.data.functions} else { funcs=res.data.functions.slice(0, limit) }
+        funcs.forEach((element) => {
           tempData = {
             language: lang,
             data: element,

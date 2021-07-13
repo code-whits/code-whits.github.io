@@ -16,7 +16,7 @@ const Home = () => {
     const getFunctions = async () => {
       setFunctions([]);
       for await (let language of languages) {
-        getData(language, searchValue, setFunctions);
+        getData(language, searchValue, setFunctions, 2);
       }
     };
     getFunctions();

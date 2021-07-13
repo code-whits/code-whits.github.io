@@ -21,7 +21,7 @@ const Language = (props) => {
       setFunctions([]);
       const { language } = props.match.params;
       if (languages.includes(language)) {
-        getData(language, searchValue, setFunctions);
+        getData(language, searchValue, setFunctions, null);
       } else {
         history.push("/Notfound");
       }
